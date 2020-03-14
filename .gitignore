@@ -1,0 +1,9 @@
+/CrossTech.ClientApi/bin
+/CrossTech.ClientApi/obj
+/CrossTech.Core/bin
+/CrossTech.Core/obj
+/CrossTech.WebApi/bin
+/CrossTech.WebApi/obj
+/CrossTechTask.WebApp/bin
+/CrossTechTask.WebApp/node_modules
+/CrossTechTask.WebApp/obj

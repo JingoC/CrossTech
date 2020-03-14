@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Список сотрудников";
+}
+
+    <div id="employee-app" v-cloak>
+
+        @{
+            var isAdmin = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims.Any(x => x.Type.Equals("Admin"));
+        }
+
+        @if (isAdmin)
+        {
+            <div class="mt-4 col-2" v-show="State==1">
+                <button class="text-white bg-primary form-control" v-on:click="State=2">
+                    Редактировать
+                </button>
+            </div>
+            <div class="mt-4 col-4 btn-group" v-show="State==2">
+                <button class="text-white bg-primary form-control" v-on:click="onClick_Save">
+                    Сохранить
+                </button>
+                <button class="ml-3 text-white bg-primary form-control" v-on:click="onClick_Cancel">
+                    Отменить
+                </button>
+            </div>
+        }
+
+        <table class="table table-striped mt-4 col-12">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Отчество</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Пол</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col" v-show="State==2">Удалить</th>
+                </tr>
+            </thead>
+            <tbody v-show="State==1">
+                <tr v-for="employee in getEmployeesList">
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.firstName}}</td>
+                    <td>{{employee.fatherName}}</td>
+                    <td>{{employee.lastName}}</td>
+                    <td>{{employee.sex === 0 ? 'Мужчина' : 'Женщина'}}</td>
+                    <td>{{Positions.find(x => x.id == employee.positionId).name}}</td>
+                    <td>{{getDate(employee)}}</td>
+                    <td>{{employee.phone}}</td>
+                </tr>
+            </tbody>
+            @if (isAdmin)
+            {
+                <tbody v-show="State==2">
+                    <tr v-for="employee in getEmployeesList">
+                        <td>{{employee.id}}</td>
+                        <td><input type="text" class="form-control form-control-sm" v-model="employee.firstName" /></td>
+                        <td><input type="text" class="form-control form-control-sm" v-model="employee.fatherName" /></td>
+
+                        <td><input type="text" class="form-control form-control-sm" v-model="employee.lastName" /></td>
+                        <td>
+                            <select class="form-control form-control-sm" v-model="employee.sex">
+                                <option value="0">Мужчина</option>
+                                <option value="1">Женщина</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <select class="form-control form-control-sm" v-model="employee.positionId">
+                                <option v-for="position in Positions" v-bind:value="position.id">{{position.name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <vuejs-datapicker :language="ru"
+                                              :format="'yyyy-MM-dd'"
+                                              :disabled-dates="{to: new Date(1940, 1, 1), from: new Date(2005, 12, 31)}"
+                                              v-model="employee.birthday">
+                            </vuejs-datapicker>
+                        </td>
+                        <td><input type="text" class="form-control form-control-sm" v-mask="'+7 (###) ###-##-##'" v-model="employee.phone" /></td>
+
+                        <td>
+                            <button class="form-control form-control-sm bg-primary text-white" v-on:click="onClick_Delete(employee.id)">
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="form-control form-control-sm bg-primary text-white" v-on:click="onClick_Add">
+                                Добавить
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+        <div class="col-12 btn-group">
+            <div class="mt-4 col-6">
+                <apexchart type="pie" width="380" :options="getChartSexOptions" :series="getChartSexSeries"></apexchart>
+            </div>
+            <div class="mt-4 col-6">
+                <apexchart type="pie" width="380" :options="getChartAgeOptions" :series="getChartAgeSeries"></apexchart>
+            </div>
+        </div>
+        
+
+    </div>
+
+@section Scripts {
+
+    <script>
+        var getPositionsUrl = '@Url.Action("GetPositions", "Employee")';
+        var getEmployeesUrl = '@Url.Action("GetEmployees", "Employee")';
+        var updateEmployeeUrl = '@Url.Action("UpdateEmployee", "Employee")';
+        var deleteEmployeeUrl = '@Url.Action("DeleteEmployee", "Employee")';
+        var addEmployeeUrl = '@Url.Action("AddEmployee", "Employee")';
+    </script>
+    
+    <script src="~/js/app/employee/index.js"></script>
+}
