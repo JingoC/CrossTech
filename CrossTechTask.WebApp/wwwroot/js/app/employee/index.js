@@ -89,6 +89,16 @@ var employeeApp = new Vue({
     },
     methods: {
 
+        printMessage: function (text) {
+            alert(text);
+        },
+
+        printRequestResult: function (r) {
+            if (!r.isSuccess) {
+                this.printMessage(r.message);
+            }
+        },
+
         getCopyArray: function (src) {
             return JSON.parse(JSON.stringify(src));
         },
@@ -149,17 +159,20 @@ var employeeApp = new Vue({
                         );
                 });
             });
-            
+
             for (var i = 0; i < deleteList.length; i++) {
-                await vue.deleteEmployeeAsync(deleteList[i]);
+                var result = await vue.deleteEmployeeAsync(deleteList[i]);
+                this.printRequestResult(result);
             }
 
             for (var i = 0; i < addList.length; i++) {
-                await vue.addEmployeeAsync(addList[i]);
+                var result = await vue.addEmployeeAsync(addList[i]);
+                this.printRequestResult(result);
             }
 
             for (var i = 0; i < updateList.length; i++) {
-                await vue.updateEmployeeAsync(updateList[i]);
+                var result = await vue.updateEmployeeAsync(updateList[i]);
+                this.printRequestResult(result);
             }
 
             await this.refreshEmployees();
@@ -206,10 +219,12 @@ var employeeApp = new Vue({
                 var response = await axios.post(updateEmployeeUrl, data);
                 var responseData = response.data;
 
-                return responseData.isSuccess;
+                return responseData;
             } catch (e) {
-                alert('Не удалось обновить сотрудника');
-                return false;
+                return {
+                    isSuccess: false,
+                    message: 'Не удалось обновить сотрудника: ' + e
+                };
             }
         },
 
@@ -227,8 +242,10 @@ var employeeApp = new Vue({
 
                 return responseData.isSuccess;
             } catch (e) {
-                alert('Не удалось удалить сотрудника');
-                return false;
+                return {
+                    isSuccess: false,
+                    message: 'Не удалось удалить сотрудника: ' + e
+                };
             }
 
         },
@@ -247,8 +264,10 @@ var employeeApp = new Vue({
 
                 return responseData.isSuccess;
             } catch (e) {
-                alert('Не удалось добавить сотрудника');
-                return false;
+                return {
+                    isSuccess: false,
+                    message: 'Не удалось добавить сотрудника: ' + e
+                };
             }
 
         },
