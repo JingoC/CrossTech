@@ -34,23 +34,15 @@ var employeeApp = new Vue({
         },
 
         getChartSexOptions: function () {
+
+            var labels = ['Мужчины', 'Женщины'];
+
             return {
                 chart: {
-                    width: 380,
+                    width: 420,
                     type: 'pie',
                 },
-                labels: ['Мужчины', 'Женщины'],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
+                labels: labels
             }
         },
 
@@ -88,21 +80,10 @@ var employeeApp = new Vue({
 
             return {
                 chart: {
-                    width: 380,
+                    width: 420,
                     type: 'pie',
                 },
-                labels: labels,
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
+                labels: labels
             }
         }
     },

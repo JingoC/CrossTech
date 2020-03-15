@@ -2,7 +2,8 @@
     el: '#auth-app',
     data: {
         Login: '',
-        Password: ''
+        Password: '',
+        Message: ''
     },
     methods: {
 
@@ -12,6 +13,8 @@
 
             if (isAuth) {
                 window.location.href = redirectUrl;
+            } else {
+                alert(this.Message);
             }
 
         },
@@ -27,11 +30,11 @@
 
             try {
                 var response = (await axios.post(authUrl, data)).data;
-                console.log(response);
+                this.Message = response.message;
 
                 return response.isSuccess;
             } catch (e) {
-                alert('Ошибка авторизации');
+                this.Message = 'Ошибка авторизации: ' + e;
                 return false;
             }
         }
