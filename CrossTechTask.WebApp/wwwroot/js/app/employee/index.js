@@ -240,7 +240,7 @@ var employeeApp = new Vue({
                 var response = await axios.post(deleteEmployeeUrl, data);
                 var responseData = response.data;
 
-                return responseData.isSuccess;
+                return responseData;
             } catch (e) {
                 return {
                     isSuccess: false,
@@ -262,7 +262,7 @@ var employeeApp = new Vue({
                 var response = await axios.post(addEmployeeUrl, data);
                 var responseData = response.data;
 
-                return responseData.isSuccess;
+                return responseData;
             } catch (e) {
                 return {
                     isSuccess: false,

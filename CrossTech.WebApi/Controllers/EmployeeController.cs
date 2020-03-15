@@ -4,6 +4,7 @@ using CrossTech.ClientApi.Models.Employee;
 using CrossTechTask.DAL.Entity;
 using CrossTechTask.DAL.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,19 @@ namespace CrossTech.WebApi.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IPositionRepository _positionRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ILogger<EmployeeController> _logger;
 
         public EmployeeController(
             IEmployeeRepository employeeRepository,
             IPositionRepository positionRepository,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ILogger<EmployeeController> logger
             )
         {
             _employeeRepository = employeeRepository;
             _positionRepository = positionRepository;
             _userRepository = userRepository;
+            _logger = logger;
         }
 
         [HttpPost("add")]
@@ -63,8 +67,16 @@ namespace CrossTech.WebApi.Controllers
             if (string.IsNullOrWhiteSpace(request.Employee.Phone)) return BaseResponse.GetFail("Телефон не задан");
             if (!request.Employee.PositionId.HasValue) return BaseResponse.GetFail("Должность не задана");
 
-            await _employeeRepository.InsertAsync(ConvertEmployeeModelToEmployee(request.Employee));
-
+            try
+            {
+                await _employeeRepository.InsertAsync(ConvertEmployeeModelToEmployee(request.Employee));
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BaseResponse.GetFail("Непредвиденная ошибка при добавлении пользователя");
+            }
+            
             return new BaseResponse() { IsSuccess = true };
         }
 
@@ -124,8 +136,9 @@ namespace CrossTech.WebApi.Controllers
             {
                 await _employeeRepository.UpdateAsync(employee);
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogError(ex.Message, ex);
                 return BaseResponse.GetFail("Непредвиденная ошибка при обновлении пользователя");
             }
             
@@ -164,8 +177,9 @@ namespace CrossTech.WebApi.Controllers
             {
                 await _employeeRepository.DeleteAsync(employee);
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogError(ex.Message, ex);
                 return BaseResponse.GetFail("Непредвиденная ошибка при удалении пользователя");
             }
 
