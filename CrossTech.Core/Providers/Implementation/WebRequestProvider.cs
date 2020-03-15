@@ -24,32 +24,23 @@ namespace CrossTech.Core.Providers.Implementation
 
             using (var client = new HttpClient())
             {
-                try
+                client.Timeout = TimeSpan.FromMilliseconds(10000);
+
+                var content = new StringContent(parameters, Encoding.UTF8, "application/json");
+
+                var responseMessage = await client.PostAsync(url, content);
+
+                if (responseMessage.StatusCode == HttpStatusCode.NoContent) { return default(TResponse); }
+
+                if (responseMessage.StatusCode == HttpStatusCode.OK)
                 {
-                    client.Timeout = TimeSpan.FromMilliseconds(10000);
+                    var response = responseMessage;
+                    var responseString = await response.Content?.ReadAsStringAsync();
 
-                    var content = new StringContent(parameters, Encoding.UTF8, "application/json");
-
-                    var responseMessage = await client.PostAsync(url, content);
-
-                    if (responseMessage.StatusCode == HttpStatusCode.NoContent) { return default(TResponse); }
-
-                    if (responseMessage.StatusCode == HttpStatusCode.OK)
-                    {
-                        var response = responseMessage;
-                        var responseString = await response.Content?.ReadAsStringAsync();
-
-                        return JsonConvert.DeserializeObject<TResponse>(responseString);
-                    }
-
-                    throw new Exception($"Error code: {responseMessage.StatusCode}");
-                }
-                catch(Exception e)
-                {
-                    throw e;
-                    return default(TResponse);
+                    return JsonConvert.DeserializeObject<TResponse>(responseString);
                 }
 
+                throw new Exception($"Error code: {responseMessage.StatusCode}");
             }
         }
         public async Task<TResponse> ExecuteGetAsync<TResponse>(string url)

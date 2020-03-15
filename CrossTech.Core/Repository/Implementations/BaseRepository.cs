@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CrossTech.Core.Repository.Implementations
 {
+    /// <summary>
+    /// Реализация Repository (не моя)
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         protected DbContext DbContext { get; private set; }

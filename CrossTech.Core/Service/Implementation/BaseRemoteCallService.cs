@@ -15,7 +15,7 @@ namespace CrossTech.Core.Service.Implementation
         {
             _configuration = configuration;
             _requestService = requestService;
-    }
+        }
 
         protected string GetUrl(string path)
         {

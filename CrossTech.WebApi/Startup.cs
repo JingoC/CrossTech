@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace CrossTech.WebApi
 {
@@ -40,6 +43,8 @@ namespace CrossTech.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CrossTech.WebApi", Version = "v1" });
+
+                c.IncludeXmlComments("CrossTech.WebApi.xml");
             });
 
             services.AddDbContext<CrossTechDbContext>(options =>
@@ -59,7 +64,7 @@ namespace CrossTech.WebApi
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BadooGrabber.WebApi v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CrossTech.WebApi v1");
                 c.RoutePrefix = "swagger";
             });
 

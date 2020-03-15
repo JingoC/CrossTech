@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CrossTech.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Add(CrossTech.ClientApi.Models.Employee.AddEmployeeRequest)">
+            <summary>
+            Добавление сотрудника
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Update(CrossTech.ClientApi.Models.Employee.UpdateEmployeeRequest)">
+            <summary>
+            Обновление данных сотрудника
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Get(CrossTech.ClientApi.Models.BaseRequest)">
+            <summary>
+            Получить список сотрудников
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Delete(CrossTech.ClientApi.Models.Employee.DeleteEmployeeRequest)">
+            <summary>
+            Удаление сотрудника
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.GetPositions(CrossTech.ClientApi.Models.BaseRequest)">
+            <summary>
+            Получить список долностей
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

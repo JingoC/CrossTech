@@ -35,6 +35,11 @@ namespace CrossTech.WebApi.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Добавление сотрудника
+        /// </summary>
+        /// <param name="request">Тело запроса</param>
+        /// <returns></returns>
         [HttpPost("add")]
         public async Task<BaseResponse> Add([FromBody] AddEmployeeRequest request)
         {
@@ -80,6 +85,11 @@ namespace CrossTech.WebApi.Controllers
             return new BaseResponse() { IsSuccess = true };
         }
 
+        /// <summary>
+        /// Обновление данных сотрудника
+        /// </summary>
+        /// <param name="request">Тело запроса</param>
+        /// <returns></returns>
         [HttpPost("update")]
         public async Task<BaseResponse> Update([FromBody] UpdateEmployeeRequest request)
         {
@@ -145,6 +155,11 @@ namespace CrossTech.WebApi.Controllers
             return new BaseResponse() { IsSuccess = true };
         }
 
+        /// <summary>
+        /// Получить список сотрудников
+        /// </summary>
+        /// <param name="request">Тело запроса</param>
+        /// <returns></returns>
         [HttpPost("get")]
         public async Task<GetEmployeesResponse> Get([FromBody] BaseRequest request)
         {
@@ -161,6 +176,11 @@ namespace CrossTech.WebApi.Controllers
             };
         }
 
+        /// <summary>
+        /// Удаление сотрудника
+        /// </summary>
+        /// <param name="request">Тело запроса</param>
+        /// <returns></returns>
         [HttpPost("delete")]
         public async Task<BaseResponse> Delete([FromBody] DeleteEmployeeRequest request)
         {
@@ -186,6 +206,11 @@ namespace CrossTech.WebApi.Controllers
             return new BaseResponse() { IsSuccess = true };
         }
 
+        /// <summary>
+        /// Получить список долностей
+        /// </summary>
+        /// <param name="request">Тело запроса</param>
+        /// <returns></returns>
         [HttpPost("get-positions")]
         public async Task<GetPositionsResponse> GetPositions([FromBody] BaseRequest request)
         {
