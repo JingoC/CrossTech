@@ -7,3 +7,5 @@
 /CrossTechTask.WebApp/bin
 /CrossTechTask.WebApp/node_modules
 /CrossTechTask.WebApp/obj
+/CrossTechTask.DAL/bin
+/CrossTechTask.DAL/obj
