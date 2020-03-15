@@ -46,6 +46,12 @@ namespace CrossTechTask.WebApp.Controllers
             return response;
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Authorization");
+        }
+
         [HttpPost]
         public async Task<GetAccessTokenResponse> GetAccessToken([FromBody] GetAccessTokenRequest request)
         {
@@ -60,7 +66,5 @@ namespace CrossTechTask.WebApp.Controllers
             
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
-
-        
     }
 }

@@ -188,6 +188,10 @@ var employeeApp = new Vue({
             });
         },
 
+        onClick_Logout: function () {
+
+        },
+
         // requests
 
         updateEmployeeAsync: async function (e) {
