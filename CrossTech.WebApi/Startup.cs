@@ -45,6 +45,7 @@ namespace CrossTech.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CrossTech.WebApi", Version = "v1" });
 
                 c.IncludeXmlComments("CrossTech.WebApi.xml");
+                c.IncludeXmlComments("CrossTech.ClientApi.xml");
             });
 
             services.AddDbContext<CrossTechDbContext>(options =>

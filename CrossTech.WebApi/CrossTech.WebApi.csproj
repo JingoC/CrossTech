@@ -31,5 +31,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CrossTech.ClientApi.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>
