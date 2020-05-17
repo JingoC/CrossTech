@@ -1,3 +1,4 @@
+using CrossTechTask.DAL.Extensions;
 using CrossTechTask.DAL.Service;
 using CrossTechTask.DAL.Service.Implementation;
 using Microsoft.AspNetCore.Builder;
@@ -59,14 +60,7 @@ namespace CrossTech.WebApi
                 c.IncludeXmlComments("CrossTech.ClientApi.xml");
             });
 
-            services.AddDbContext<CrossTechDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CrossTechDb"))
-            );
-
-            services.AddScoped<ICrossTechDbContext, CrossTechDbContext>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IPositionRepository, PositionRepository>();
+            services.AddRepositories(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

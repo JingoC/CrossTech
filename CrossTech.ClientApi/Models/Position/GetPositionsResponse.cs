@@ -1,6 +1,5 @@
-﻿using System;
+﻿using CrossTech.ClientApi.Models.Position;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CrossTech.ClientApi.Models.Employee
 {

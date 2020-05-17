@@ -1,4 +1,5 @@
-﻿using CrossTech.Core.Repository.Implementations;
+﻿using CrossTech.Core.Repository;
+using CrossTech.Core.Repository.Implementations;
 using CrossTechTask.DAL.Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -6,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace CrossTechTask.DAL.Service.Implementation
 {
+    public interface IEmployeeRepository : IBaseRepository<Employee>
+    {
+        Task<List<Employee>> GetAllAsync();
+        Task<Employee> GetByIdAsync(int id);
+    }
+
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
         public EmployeeRepository(ICrossTechDbContext crossTechDbContext) : base(crossTechDbContext.Employees)

@@ -2,7 +2,7 @@
 using CrossTech.ClientApi.Models;
 using CrossTech.ClientApi.Models.Employee;
 using CrossTechTask.DAL.Entity;
-using CrossTechTask.DAL.Service;
+using CrossTechTask.DAL.Service.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,19 +18,16 @@ namespace CrossTech.WebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly IPositionRepository _positionRepository;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<EmployeeController> _logger;
 
         public EmployeeController(
             IEmployeeRepository employeeRepository,
-            IPositionRepository positionRepository,
             IUserRepository userRepository,
             ILogger<EmployeeController> logger
             )
         {
             _employeeRepository = employeeRepository;
-            _positionRepository = positionRepository;
             _userRepository = userRepository;
             _logger = logger;
         }
@@ -40,7 +37,7 @@ namespace CrossTech.WebApi.Controllers
         /// </summary>
         /// <param name="request">Тело запроса</param>
         /// <returns></returns>
-        [HttpPost("add")]
+        [HttpPost()]
         public async Task<BaseResponse> Add([FromBody] AddEmployeeRequest request)
         {
             if (request == null) return BaseResponse.GetFail("Тело запроса пустое");
@@ -205,26 +202,6 @@ namespace CrossTech.WebApi.Controllers
             }
 
             return new BaseResponse() { IsSuccess = true };
-        }
-
-        /// <summary>
-        /// Получить список долностей
-        /// </summary>
-        /// <param name="request">Тело запроса</param>
-        /// <returns></returns>
-        [HttpPost("get-positions")]
-        public async Task<GetPositionsResponse> GetPositions([FromBody] BaseRequest request)
-        {
-            var access = await CheckAccessToken(request.AccessToken, null);
-            if (!access.IsSuccess) return new GetPositionsResponse() { IsSuccess = false, Message = access.Message };
-
-            var positions = await _positionRepository.GetAll();
-
-            return new GetPositionsResponse()
-            {
-                Positions = positions.Select(x => new PositionModel() { Id = x.Id, Name = x.Name }).ToList(),
-                IsSuccess = true
-            };
         }
 
         #region private methods

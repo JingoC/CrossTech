@@ -8,6 +8,6 @@
         /// <summary>
         /// Пользователь
         /// </summary>
-        public UserModel User { get; set; }
+        public string AccessToken { get; set; }
     }
 }

@@ -54,21 +54,6 @@
             Женщина
             </summary>
         </member>
-        <member name="T:CrossTech.ClientApi.Models.Authorization.ClaimModel">
-            <summary>
-            Модель прав доступа
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.ClaimModel.Id">
-            <summary>
-            Id
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.ClaimModel.Name">
-            <summary>
-            Наименование
-            </summary>
-        </member>
         <member name="T:CrossTech.ClientApi.Models.Authorization.GetAccessTokenRequest">
             <summary>
             Тело запроса на получение токена
@@ -114,29 +99,9 @@
             Тело ответа на операцию входа
             </summary>
         </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.LoginResponse.User">
+        <member name="P:CrossTech.ClientApi.Models.Authorization.LoginResponse.AccessToken">
             <summary>
             Пользователь
-            </summary>
-        </member>
-        <member name="T:CrossTech.ClientApi.Models.Authorization.UserModel">
-            <summary>
-            Модель пользователь
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.UserModel.Login">
-            <summary>
-            Логин
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.UserModel.AccessToken">
-            <summary>
-            Токен доступа
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Authorization.UserModel.Claims">
-            <summary>
-            Список доступных прав
             </summary>
         </member>
         <member name="T:CrossTech.ClientApi.Models.BaseRequest">
@@ -239,31 +204,6 @@
             Список сотрудников
             </summary>
         </member>
-        <member name="T:CrossTech.ClientApi.Models.Employee.GetPositionsResponse">
-            <summary>
-            Тело ответа на запрос списка получения должностей
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Employee.GetPositionsResponse.Positions">
-            <summary>
-            Список должностей
-            </summary>
-        </member>
-        <member name="T:CrossTech.ClientApi.Models.Employee.PositionModel">
-            <summary>
-            Модель должности
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Employee.PositionModel.Id">
-            <summary>
-            Id
-            </summary>
-        </member>
-        <member name="P:CrossTech.ClientApi.Models.Employee.PositionModel.Name">
-            <summary>
-            Наименование
-            </summary>
-        </member>
         <member name="T:CrossTech.ClientApi.Models.Employee.UpdateEmployeeRequest">
             <summary>
             Тело запроса на обновление сотрудника
@@ -272,6 +212,16 @@
         <member name="P:CrossTech.ClientApi.Models.Employee.UpdateEmployeeRequest.Employee">
             <summary>
             Сотрудник
+            </summary>
+        </member>
+        <member name="T:CrossTech.ClientApi.Models.Employee.GetPositionsResponse">
+            <summary>
+            Тело ответа на запрос списка получения должностей
+            </summary>
+        </member>
+        <member name="P:CrossTech.ClientApi.Models.Employee.GetPositionsResponse.Positions">
+            <summary>
+            Список должностей
             </summary>
         </member>
     </members>

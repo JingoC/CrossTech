@@ -1,5 +1,5 @@
 ﻿using CrossTech.ClientApi.Models.Authorization;
-using CrossTechTask.DAL.Service;
+using CrossTechTask.DAL.Service.Implementation;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -23,7 +23,7 @@ namespace CrossTech.WebApi.Controllers
 
             if (user == null) return new LoginResponse() { IsSuccess = false, Message = "Проверьте правильность ввода логина и пароля" };
 
-            return new LoginResponse() { IsSuccess = true, User = user };
+            return new LoginResponse() { IsSuccess = true, AccessToken = user.User.AccessToken };
         }
 
         [HttpPost("get-access-token")]
@@ -33,7 +33,7 @@ namespace CrossTech.WebApi.Controllers
 
             if (user == null) return new GetAccessTokenResponse() { IsSuccess = false, Message = "Проверьте правильность ввода логина и пароля" };
 
-            return new GetAccessTokenResponse() { IsSuccess = true, AccessToken = user.AccessToken };
+            return new GetAccessTokenResponse() { IsSuccess = true, AccessToken = user.User.AccessToken };
         }
     }
 }
