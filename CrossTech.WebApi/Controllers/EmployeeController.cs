@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CrossTech.WebApi.Controllers
 {
-    [Route("api/employee")]
+    [Route("employee")]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
@@ -90,7 +90,7 @@ namespace CrossTech.WebApi.Controllers
         /// </summary>
         /// <param name="request">Тело запроса</param>
         /// <returns></returns>
-        [HttpPost("update")]
+        [HttpPut()]
         public async Task<BaseResponse> Update([FromBody] UpdateEmployeeRequest request)
         {
             if (request == null) return BaseResponse.GetFail("Тело запроса пустое");
@@ -160,10 +160,11 @@ namespace CrossTech.WebApi.Controllers
         /// </summary>
         /// <param name="request">Тело запроса</param>
         /// <returns></returns>
-        [HttpPost("get")]
-        public async Task<GetEmployeesResponse> Get([FromBody] BaseRequest request)
+        [HttpGet()]
+        public async Task<GetEmployeesResponse> Get()
         {
-            var access = await CheckAccessToken(request.AccessToken, null);
+            //var access = await CheckAccessToken(request.AccessToken, null);
+            var access = await CheckAccessToken(null, null);
             if (!access.IsSuccess) return new GetEmployeesResponse() { IsSuccess = false, Message = access.Message };
 
             var employees = await _employeeRepository.GetAllAsync();
@@ -181,7 +182,7 @@ namespace CrossTech.WebApi.Controllers
         /// </summary>
         /// <param name="request">Тело запроса</param>
         /// <returns></returns>
-        [HttpPost("delete")]
+        [HttpDelete()]
         public async Task<BaseResponse> Delete([FromBody] DeleteEmployeeRequest request)
         {
             if (request == null) return BaseResponse.GetFail("Тело запроса пустое");

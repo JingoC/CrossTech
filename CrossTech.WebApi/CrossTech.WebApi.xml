@@ -18,7 +18,7 @@
             <param name="request">Тело запроса</param>
             <returns></returns>
         </member>
-        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Get(CrossTech.ClientApi.Models.BaseRequest)">
+        <member name="M:CrossTech.WebApi.Controllers.EmployeeController.Get">
             <summary>
             Получить список сотрудников
             </summary>
@@ -33,6 +33,13 @@
             <returns></returns>
         </member>
         <member name="M:CrossTech.WebApi.Controllers.EmployeeController.GetPositions(CrossTech.ClientApi.Models.BaseRequest)">
+            <summary>
+            Получить список долностей
+            </summary>
+            <param name="request">Тело запроса</param>
+            <returns></returns>
+        </member>
+        <member name="M:CrossTech.WebApi.Controllers.PositionController.GetAll">
             <summary>
             Получить список долностей
             </summary>

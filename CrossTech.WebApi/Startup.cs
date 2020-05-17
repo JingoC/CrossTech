@@ -29,6 +29,17 @@ namespace CrossTech.WebApi
         {
             services.AddSingleton(Configuration);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("dev", b =>
+                {
+                    b.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+                
+
             services.AddMvc(options =>
                 options.EnableEndpointRouting = false
                 )
@@ -37,7 +48,7 @@ namespace CrossTech.WebApi
                 {
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+                    //options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 });
 
             services.AddSwaggerGen(c =>
@@ -72,6 +83,7 @@ namespace CrossTech.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("dev");
             }
 
             app.UseHttpsRedirection();

@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+    crosstech:
+      ipam:
+          driver: default
+          config:
+              - subnet: 172.29.0.0/16
+
+services:
+    mssql-config:
+        image: "mcr.microsoft.com/mssql/server"
+        container_name: crosstech-mssql
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "yourStrong(!)Password"
+            ACCEPT_EULA: "Y"
+        networks:
+            crosstech:
+                ipv4_address: 172.29.0.4
+    
